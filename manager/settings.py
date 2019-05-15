@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'crispy_forms',
+
     'books'
 ]
 
@@ -118,3 +120,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_env')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

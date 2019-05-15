@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+{% if messages %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {% for message in messages %}
+    {{message|safe}}
+    {% endfor %}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+
+<div style="display: flex; align-items: center;">
+    <h1>List of books</h1>
+    <a  style="margin-left: 10px;" class="btn btn-primary" href="{% url 'home' %}">Back</a>
+</div>
+
+<form>
+    <div class="form-row align-items-center" style="margin: 20px 0">
+        <div class="col-sm-5 my-1">
+            <input type="text" class="form-control" id="inlineFormInputAuthor" placeholder="Author...">
+        </div>
+        <div class="col-sm-6 my-1">
+            <input type="text" class="form-control" id="inlineFormInputTitle" placeholder="Title...">
+        </div>
+        <div class="col-auto my-1">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">Image</th>
+        <th scope="col">Title</th>
+        <th scope="col">Authors</th>
+        <th scope="col">Category</th>
+        <th scope="col">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for book in books %}
+    <tr>
+        <td>
+            <img src="{% if book.thumbnail %}{{book.thumbnail}}{% else %} {% static 'img/no_image.png' %} {% endif %}">
+        </td>
+        <td>{{book.title}}</td>
+
+        <td>
+            {% for author in book.authors.all %}
+            {{author.name}} <br>
+            {% endfor %}
+        </td>
+
+        <td>
+            {% for category in book.categories.all %}
+            {{category.name}} <br>
+            {% endfor %}
+        </td>
+
+        <td>{{book.description}}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5" style="text-align: center">There are no books on the list.</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% if is_paginated %}
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-end">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">begin</span>
+            </a>
+        </li>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <li class="page-item active">
+            <span class="page-link">{{num}}<span class="sr-only">current</span></span>
+        </li>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <li class="page-item"><a class="page-link" href="?page={{num}}">{{num}}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">end</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+{% endblock %}

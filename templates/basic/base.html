@@ -30,37 +30,42 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container" style="margin-bottom: 100px">
     {% block content %}
+
+    <div class="alert alert-primary" role="alert">
+        The current number of books in the database: <strong>{{current_books}}</strong>
+    </div>
+
     <div class="row">
         <div class="col-sm-4">
-            <div class="card text-center" style="width: 18rem;">
+            <div class="card text-center" style="">
                 <div class="card-body">
                     <h5 class="card-title">List of books</h5>
                     <p class="card-text">Review the list of books in the database.</p>
-                    <a href="#" class="btn btn-primary btn-lg">
+                    <a href="{% url 'books' %}" class="btn btn-primary btn-lg">
                         <span><i class="fas fa-list-ul"></i></span> Go
                     </a>
                 </div>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="card text-center" style="width: 18rem;">
+            <div class="card text-center" style="">
                 <div class="card-body">
                     <h5 class="card-title">Import books</h5>
                     <p class="card-text">Import books from Google Books API.</p>
-                    <a href="#" class="btn btn-primary btn-lg">
+                    <a href="{% url 'api' %}" class="btn btn-primary btn-lg">
                         <span><i class="fas fa-upload"></i></span> Go
                     </a>
                 </div>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="card text-center" style="width: 18rem;">
+            <div class="card text-center" style="">
                 <div class="card-body">
                     <h5 class="card-title">Add book</h5>
-                    <p class="card-text">Add your own book that you want to the database.</p>
-                    <a href="#" class="btn btn-primary btn-lg">
+                    <p class="card-text">Add your own book to the database.</p>
+                    <a href="{% url 'add' %}" class="btn btn-primary btn-lg">
                         <span><i class="fas fa-plus-square"></i></span> Go
                     </a>
                 </div>
@@ -70,7 +75,7 @@
     {% endblock %}
 </div>
 
-<nav class="navbar fixed-bottom  navbar-dark bg-dark">
+<nav class="navbar fixed-bottom navbar-dark bg-dark">
     <div style="text-align: center; flex: auto">
         <a class="navbar-brand mr-sm-2" href="https://www.github.com/swozny13">github</a>
         <a class="navbar-brand" href="https://www.linkedin.com/in/sebastian-wo%C5%BAniak-9b0b88144/">linkedin</a>
