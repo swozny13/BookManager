@@ -22,8 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'n$5@b#*un=2a-#k&h$he%!6t83mp!j)82za3*u&e=ts0_+3l36'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
+# ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['swbookmanager.herokuapp.com']
 
 # Application definition
