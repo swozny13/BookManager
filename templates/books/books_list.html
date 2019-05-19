@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load book_tags %}
 {% block content %}
 
 {% if messages %}
@@ -16,16 +17,16 @@
 
 <div style="display: flex; align-items: center;">
     <h1>List of books</h1>
-    <a  style="margin-left: 10px;" class="btn btn-primary" href="{% url 'home' %}">Back</a>
+    <a style="margin-left: 10px;" class="btn btn-primary" href="{% url 'home' %}">Back</a>
 </div>
 
-<form>
+<form method="get">
     <div class="form-row align-items-center" style="margin: 20px 0">
         <div class="col-sm-5 my-1">
-            <input type="text" class="form-control" id="inlineFormInputAuthor" placeholder="Author...">
+            <input type="text" class="form-control" id="authors" name="authors" placeholder="Author...">
         </div>
         <div class="col-sm-6 my-1">
-            <input type="text" class="form-control" id="inlineFormInputTitle" placeholder="Title...">
+            <input type="text" class="form-control" id="title" name="title" placeholder="Title...">
         </div>
         <div class="col-auto my-1">
             <button type="submit" class="btn btn-primary">Filter</button>
@@ -39,7 +40,7 @@
         <th scope="col">Image</th>
         <th scope="col">Title</th>
         <th scope="col">Authors</th>
-        <th scope="col">Category</th>
+        <th scope="col">Categories</th>
         <th scope="col">Description</th>
     </tr>
     </thead>
@@ -78,7 +79,7 @@
     <ul class="pagination justify-content-end">
         {% if page_obj.has_previous %}
         <li class="page-item">
-            <a class="page-link" href="?page=1" aria-label="Previous">
+            <a class="page-link" href="?{% url_address page=page_obj.previous_page_number %}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
                 <span class="sr-only">begin</span>
             </a>
@@ -90,13 +91,13 @@
             <span class="page-link">{{num}}<span class="sr-only">current</span></span>
         </li>
         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-        <li class="page-item"><a class="page-link" href="?page={{num}}">{{num}}</a></li>
+        <li class="page-item"><a class="page-link" href="?{% url_address page=num %}">{{num}}</a></li>
         {% endif %}
         {% endfor %}
 
         {% if page_obj.has_next %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+            <a class="page-link" href="?{% url_address page=page_obj.next_page_number %}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
                 <span class="sr-only">end</span>
             </a>
@@ -104,6 +105,7 @@
         {% endif %}
     </ul>
 </nav>
+
 {% endif %}
 
 {% endblock %}

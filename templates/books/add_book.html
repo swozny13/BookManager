@@ -3,10 +3,25 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    {{message|safe}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+{% endif %}
 
 <div style="display: flex; align-items: center;">
     <h1>Add new book</h1>
     <a style="margin-left: 10px;" class="btn btn-primary" href="{% url 'home' %}">Back</a>
+</div>
+
+<div>
+    <a class="btn btn-sm btn-warning" href="{% url 'add_author' %}">Add author</a>
+    <a class="btn btn-sm btn-warning" href="{% url 'add_category' %}">Add category</a>
 </div>
 
 <form action="" method="POST">{% csrf_token %}

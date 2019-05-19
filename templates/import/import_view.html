@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div style="display: flex; align-items: center;">
+    <h1>Import books from Google Books</h1>
+    <a style="margin-left: 10px;" class="btn btn-primary" href="{% url 'home' %}">Back</a>
+</div>
+
+<div>
+    <p>You import a maximum of 5 books.</p>
+</div>
+
+<form method="get">
+    <div class="form-row align-items-center" style="margin: 20px 0">
+        <div class="col-sm-11 my-1">
+            <input type="text" class="form-control" id="value" name='value'
+                   placeholder="For example, type author or title..." required>
+        </div>
+        <div class="col-auto my-1">
+            <button type="submit" class="btn btn-primary">Import</button>
+        </div>
+    </div>
+</form>
+
+{% if exception %}
+<div class="alert danger" role="alert">
+    <strong>Some exception! Try again!</strong>
+</div>
+{% endif %}
+
+{% if no_results %}
+<div class="alert alert-primary" role="alert">
+    No data for <strong>{{value}}</strong> query. Try again!
+</div>
+{% endif %}
+
+{% if added_books > 0 %}
+<div class="alert alert-success" role="alert">
+    Added <strong>{{added_books}}</strong> books!
+</div>
+{% endif %}
+
+{% if no_added_books > 0 %}
+<div class="alert alert-danger" role="alert">
+    Failed to add <strong>{{no_added_books}}</strong> books. Currently in database.
+</div>
+{% endif %}
+
+{% endblock %}
