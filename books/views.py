@@ -50,36 +50,7 @@ class BookListView(ListView):
 
     def get_queryset(self):
         queryset = filter_qs(self.request)
-        # self.paginate_by = 10
-        # self.page_kwarg = 'none'
-        # print(self.request.GET.copy())
         return queryset
-
-    # def get_context_data(self, *, object_list=None, **kwargs):
-    #     context = super(BookListView, self).get_context_data(**kwargs)
-    #     context['page_kwarg'] = self.page_kwarg
-    #     return context
-
-
-#
-# def test_filter(request):
-#     qs = filter_qs(request)
-#     paginator = Paginator(qs['qs'], 5)
-#     page = request.GET.get('page')
-#     print(qs['query_string'])
-#
-#     try:
-#         queryset = paginator.page(page)
-#     except PageNotAnInteger:
-#         queryset = paginator.page(1)
-#     except EmptyPage:
-#         queryset = paginator.page(paginator.num_pages)
-#
-#     context = {
-#         'books': queryset,
-#         'query_string': qs['query_string']
-#     }
-#     return render(request, "books_list.html", context)
 
 
 class AddNewBookView(SuccessMessageMixin, CreateView):
